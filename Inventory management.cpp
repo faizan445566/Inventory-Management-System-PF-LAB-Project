@@ -99,3 +99,60 @@ void loadFromFile() {
         cout << "No file found. Starting fresh.\n";
         return;
     }
+    
+    string line;
+    while (getline(file, line)) {
+        Product p;
+        size_t pos = 0;
+
+        // Parse ID
+        pos = line.find(',');
+        p.id = parseInt(line.substr(0, pos));
+        line.erase(0, pos + 1);
+
+        // Parse Name
+        pos = line.find(',');
+        p.name = line.substr(0, pos);
+        line.erase(0, pos + 1);
+
+        // Parse Quantity
+        pos = line.find(',');
+        p.quantity = parseInt(line.substr(0, pos));
+        line.erase(0, pos + 1);
+
+        // Parse Price
+        p.price = parseDouble(line);
+
+        inventory.push_back(p);
+    }
+
+    file.close();
+    cout << "Inventory loaded from file.\n";
+}
+
+int parseInt(const string& str) {
+    int result = 0;
+    for (size_t i = 0; i < str.size(); i++) {
+        result = result * 10 + (str[i] - '0');
+    }
+    return result;
+}
+
+double parseDouble(const string& str) {
+    double result = 0.0, factor = 1.0;
+    bool isFraction = false;
+
+    for (size_t i = 0; i < str.size(); i++) {
+        if (str[i] == '.') {
+            isFraction = true;
+            continue;
+        }
+        if (!isFraction) {
+            result = result * 10.0 + (str[i] - '0');
+        } else {
+            factor *= 0.1;
+            result += (str[i] - '0') * factor;
+        }
+    }
+    return result;
+}
