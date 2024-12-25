@@ -71,9 +71,7 @@ void showInventory() {
 
     cout << "ID\tName\t\tQuantity\tPrice\n";
     for (int i = 0; i < inventory.size(); i++) {
-        cout << inventory[i].id << "\t" << inventory[i].name
-             << "\t" << inventory[i].quantity
-             << "\t" << inventory[i].price << "\n";
+        cout << inventory[i].id << "\t" << inventory[i].name<< "\t" << "\t"<<inventory[i].quantity<< "\t\t" << inventory[i].price << "\n";
     }
 }
 
